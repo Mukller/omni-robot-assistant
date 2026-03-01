@@ -1,0 +1,8 @@
+.pio/
+__pycache__/
+*.pyc
+build/
+*.o
+*.bin
+*.elf
+.DS_Store
