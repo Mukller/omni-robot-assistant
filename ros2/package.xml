@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>loki_robot</name>
+  <version>1.0.0</version>
+  <description>ROS2 Iron package for Loki 200mm home robot assistant</description>
+  <maintainer email="anton.petnitsky@gmail.com">Anton</maintainer>
+  <license>MIT</license>
+  <depend>rclcpp</depend>
+  <depend>nav2_bringup</depend>
+  <depend>cartographer_ros</depend>
+  <depend>explore_lite</depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+</package>
