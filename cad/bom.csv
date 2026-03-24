@@ -1,0 +1,17 @@
+Component,Qty,Unit Price USD,Total USD,Source
+Raspberry Pi 4 (4GB),1,55.00,55.00,Official
+ESP32 DevKit v1,1,4.50,4.50,AliExpress
+MakersPet Loki 200mm frame kit,1,45.00,45.00,makerspet.com
+JGA25-370 DC gear motor 12V,2,7.00,14.00,AliExpress
+Omni wheel 48mm,2,3.50,7.00,AliExpress
+Caster ball wheel,1,2.00,2.00,AliExpress
+L298N motor driver,1,2.50,2.50,AliExpress
+YDLidar X4 (or LDS02RR),1,55.00,55.00,Amazon
+Adafruit BNO055 IMU,1,3.50,3.50,AliExpress
+INA219 current sensor,2,1.20,2.40,AliExpress
+LiPo 11.1V 3000mAh,1,18.00,18.00,Local
+7-inch HDMI display,1,35.00,35.00,AliExpress
+USB camera (wide-angle),1,12.00,12.00,AliExpress
+Jumper wires + connectors,1,5.00,5.00,Local
+Misc hardware (screws bolts),1,3.00,3.00,Local
+Total,,,264.90,
