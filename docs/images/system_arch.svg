@@ -1,0 +1,51 @@
+<svg width="720" height="360" viewBox="0 0 720 360" xmlns="http://www.w3.org/2000/svg">
+  <rect width="720" height="360" fill="#0d1117"/>
+  <text x="360" y="28" text-anchor="middle" fill="#e6edf3" font-family="system-ui" font-size="15" font-weight="bold">System Architecture — Loki Robot Assistant</text>
+
+  <!-- Raspberry Pi 4 block -->
+  <rect x="260" y="50" width="200" height="130" rx="10" fill="#1f3a5f" stroke="#58a6ff" stroke-width="2"/>
+  <text x="360" y="73" text-anchor="middle" fill="#58a6ff" font-family="system-ui" font-size="13" font-weight="bold">Raspberry Pi 4</text>
+  <text x="360" y="92" text-anchor="middle" fill="#79c0ff" font-family="system-ui" font-size="10">ROS2 Iron</text>
+  <text x="290" y="112" fill="#c9d1d9" font-family="monospace" font-size="9">• Cartographer SLAM</text>
+  <text x="290" y="127" fill="#c9d1d9" font-family="monospace" font-size="9">• Nav2 navigation</text>
+  <text x="290" y="142" fill="#c9d1d9" font-family="monospace" font-size="9">• explore_lite</text>
+  <text x="290" y="157" fill="#c9d1d9" font-family="monospace" font-size="9">• microROS agent (UDP)</text>
+  <text x="290" y="172" fill="#c9d1d9" font-family="monospace" font-size="9">• Web monitor (Flask)</text>
+
+  <!-- ESP32 block -->
+  <rect x="50" y="220" width="200" height="110" rx="10" fill="#1a3a1a" stroke="#3fb950" stroke-width="2"/>
+  <text x="150" y="243" text-anchor="middle" fill="#3fb950" font-family="system-ui" font-size="13" font-weight="bold">ESP32</text>
+  <text x="150" y="260" text-anchor="middle" fill="#7ee787" font-family="system-ui" font-size="10">microROS + Arduino</text>
+  <text x="75" y="278" fill="#c9d1d9" font-family="monospace" font-size="9">• Motor PWM (L298N)</text>
+  <text x="75" y="293" fill="#c9d1d9" font-family="monospace" font-size="9">• Encoder read</text>
+  <text x="75" y="308" fill="#c9d1d9" font-family="monospace" font-size="9">• LiDAR UART parse</text>
+  <text x="75" y="323" fill="#c9d1d9" font-family="monospace" font-size="9">• BNO055 + INA219</text>
+
+  <!-- Sensors block -->
+  <rect x="470" y="220" width="200" height="110" rx="10" fill="#2d2000" stroke="#e3b341" stroke-width="2"/>
+  <text x="570" y="243" text-anchor="middle" fill="#e3b341" font-family="system-ui" font-size="13" font-weight="bold">Hardware</text>
+  <text x="490" y="263" fill="#c9d1d9" font-family="monospace" font-size="9">• YDLidar X4 (360°)</text>
+  <text x="490" y="278" fill="#c9d1d9" font-family="monospace" font-size="9">• JGA25-370 × 2</text>
+  <text x="490" y="293" fill="#c9d1d9" font-family="monospace" font-size="9">• BNO055 IMU</text>
+  <text x="490" y="308" fill="#c9d1d9" font-family="monospace" font-size="9">• INA219 × 2</text>
+  <text x="490" y="323" fill="#c9d1d9" font-family="monospace" font-size="9">• 7" HDMI display</text>
+
+  <!-- Arrows: RPi <-> ESP32 -->
+  <line x1="260" y1="170" x2="200" y2="230" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="200" y1="230" x2="260" y2="170" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arr2)"/>
+  <text x="195" y="205" fill="#8b949e" font-family="system-ui" font-size="9">UDP WiFi</text>
+  <text x="175" y="218" fill="#8b949e" font-family="system-ui" font-size="9">cmd_vel / odom / scan</text>
+
+  <!-- Arrow: ESP32 <-> Hardware -->
+  <line x1="250" y1="275" x2="470" y2="275" stroke="#e3b341" stroke-width="1.5"/>
+  <text x="360" y="268" text-anchor="middle" fill="#8b949e" font-family="system-ui" font-size="9">GPIO / UART / I²C</text>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#58a6ff"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#3fb950"/>
+    </marker>
+  </defs>
+</svg>
