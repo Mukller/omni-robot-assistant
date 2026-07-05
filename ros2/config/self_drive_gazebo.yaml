@@ -1,0 +1,18 @@
+# Self-drive (wall-following / obstacle avoidance) config
+# https://github.com/makerspet/makerspet_loki/blob/main/config/self_drive_gazebo.yaml
+self_drive_gazebo_node:
+  ros__parameters:
+    velocity:
+      topic_name_pub: "cmd_vel"
+      linear: 0.3          # m/s forward speed
+      angular: 1.5         # rad/s turning speed
+
+    laser_scan:
+      topic_name_sub: "scan"
+
+    odometry:
+      topic_name_sub: "odom"
+
+    check:
+      angle: 30            # degrees: front sector half-width to check for obstacles
+      distance: 0.6        # meters: stop/turn distance threshold
