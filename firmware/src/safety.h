@@ -1,18 +1,29 @@
 #pragma once
+#include "motor_driver.h"
+#include "pid.h"
 
-class Safety {
+class SafetyMonitor {
 public:
-    // Call every loop iteration
-    void update(float minFrontDist_m, float batteryV, float currentL_A, float currentR_A);
-    bool isEStop() const { return _estop; }
+    SafetyMonitor(MotorDriver& mL, MotorDriver& mR, PID& pL, PID& pR)
+        : _mL(mL), _mR(mR), _pL(pL), _pR(pR) {}
+
+    // Call every loop. lastCmdMs = millis() of last received /cmd_vel.
+    void update(float battVolt, float currL_A, float currR_A, unsigned long lastCmdMs);
+
+    bool isEStop()   const { return _estop; }
     bool isBattLow() const { return _battLow; }
-    bool isOvercurrent() const { return _overcurrent; }
-    void clearEStop() { _estop = false; }
+    void clearEStop()      { _estop = false; }
+
 private:
-    bool _estop       = false;
-    bool _battLow     = false;
-    bool _overcurrent = false;
-    static constexpr float FRONT_STOP_M  = 0.15f;
-    static constexpr float BATT_LOW_V    = 10.5f;
-    static constexpr float OVERCURRENT_A = 3.0f;
+    MotorDriver& _mL;
+    MotorDriver& _mR;
+    PID&         _pL;
+    PID&         _pR;
+
+    bool _estop   = false;
+    bool _battLow = false;
+
+    static constexpr float         BATT_LOW_V      = 10.5f;
+    static constexpr float         OVERCURRENT_A   = 2.5f;
+    static constexpr unsigned long CMD_TIMEOUT_MS  = 500;   // e-stop if no cmd_vel
 };

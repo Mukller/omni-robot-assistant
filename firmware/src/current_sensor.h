@@ -4,8 +4,9 @@
 class CurrentSensor {
 public:
     CurrentSensor(uint8_t addr);
-    bool begin();
+    bool  begin();
     float getCurrent_mA();
+    float getCurrent()    { return getCurrent_mA() / 1000.0f; }  // A
     float getVoltage_V();
     float getPower_mW();
 private:

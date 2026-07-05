@@ -75,9 +75,10 @@ void loop() {
     }
 
     // ── Velocity PID ─────────────────────────────────────────────────────
-    // Measured wheel velocities in m/s from encoder RPM
-    float velL_ms = encL.getRPM(dtMs) / 60.0f * (2.0f * M_PI * WHEEL_RADIUS_M);
-    float velR_ms = encR.getRPM(dtMs) / 60.0f * (2.0f * M_PI * WHEEL_RADIUS_M);
+    // Measured wheel velocities in m/s (ticks/s → m/s via circumference)
+    const float ticksToMs = (2.0f * M_PI * WHEEL_RADIUS_M) / TICKS_PER_REV;
+    float velL_ms = encL.getTicksPerSec(dtMs) * ticksToMs;
+    float velR_ms = encR.getTicksPerSec(dtMs) * ticksToMs;
 
     // Differential kinematics: Twist → wheel target velocities
     float targetL = ros.cmdVx - ros.cmdWz * (WHEEL_BASE_M / 2.0f);

@@ -7,7 +7,7 @@ public:
     void begin();
     long getTicks() const;
     void reset();
-    float getRPM(unsigned long dtMs);
+    float getTicksPerSec(unsigned long dtMs);  // raw ticks/s for velocity PID
 private:
     uint8_t _pinA, _pinB;
     volatile long _ticks = 0;
