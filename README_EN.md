@@ -156,42 +156,61 @@ Full table: [docs/lidar_compatibility.md](docs/lidar_compatibility.md)
 
 ### 1. Flash ESP32
 ```bash
-cd firmware && pio run --target upload --environment esp32dev
+# Edit firmware/src/wifi_config.h with your WiFi credentials first
+bash scripts/flash_esp32.sh          # auto-detects port
+# or: bash scripts/flash_esp32.sh /dev/ttyUSB0
 ```
 
 ### 2. Setup Raspberry Pi 4
 ```bash
-sudo apt install -y ros-iron-desktop ros-iron-nav2-bringup \
-    ros-iron-cartographer-ros ros-iron-explore-lite \
-    ros-iron-micro-ros-agent ros-iron-robot-localization
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
-git clone https://github.com/Mukller/omni-robot-assistant.git
-cp -r omni-robot-assistant/ros2 loki_robot
-cd ~/ros2_ws && colcon build && source install/setup.bash
+# Automated setup (ROS2 Iron + Nav2 + micro_ros_agent systemd service)
+bash scripts/setup_rpi.sh
+sudo reboot
 ```
 
 ### 3. Launch
 ```bash
-ros2 launch loki_robot loki_bringup.launch.py
+ros2 launch loki_robot loki_bringup.launch.py   # SLAM + Nav2 + microROS agent
+ros2 launch loki_robot explore.launch.py         # autonomous exploration
 ```
 
 ---
 
 ## Documentation
 
+### Getting Started
 | Document | Description |
 |----------|-------------|
-| [docs/wiring.md](docs/wiring.md) | Full wiring guide |
-| [docs/assembly.md](docs/assembly.md) | Assembly with print settings |
+| [docs/faq.md](docs/faq.md) | FAQ — hardware, firmware, ROS2, 3D printing |
+| [docs/troubleshooting.md](docs/troubleshooting.md) | Troubleshooting ESP32, RPi, power, mechanics |
+| [docs/assembly.md](docs/assembly.md) | Assembly guide with print settings |
+| [docs/wiring.md](docs/wiring.md) | Full wiring diagram |
 | [docs/calibration.md](docs/calibration.md) | Encoder, IMU, PID calibration |
+
+### Software
+| Document | Description |
+|----------|-------------|
 | [docs/ros2_setup.md](docs/ros2_setup.md) | ROS2 Iron installation on RPi 4 |
 | [docs/ros2_architecture.md](docs/ros2_architecture.md) | Node topology, topics, TF tree |
+| [docs/roadmap.md](docs/roadmap.md) | v1.0–v2.0 roadmap + known limitations |
+
+### Hardware & CAD
+| Document | Description |
+|----------|-------------|
+| [docs/hardware/ydlidar_x4.md](docs/hardware/ydlidar_x4.md) | YDLidar X4 specs & wiring |
+| [docs/hardware/motors_and_wheels.md](docs/hardware/motors_and_wheels.md) | Motors JGA25-370, wheels, L298N |
+| [docs/hardware/sensors.md](docs/hardware/sensors.md) | BNO055, INA219, LiPo 3S battery |
+| [docs/hardware/raspberry_pi.md](docs/hardware/raspberry_pi.md) | RPi 4 setup + systemd autostart |
 | [docs/lidar_compatibility.md](docs/lidar_compatibility.md) | Compatible LiDAR table (20+ models) |
 | [docs/stl_files.md](docs/stl_files.md) | STL list with print settings |
-| [docs/hardware/ydlidar_x4.md](docs/hardware/ydlidar_x4.md) | YDLidar X4 specs & wiring |
-| [docs/hardware/motors_and_wheels.md](docs/hardware/motors_and_wheels.md) | Motors, wheels, L298N |
-| [docs/hardware/sensors.md](docs/hardware/sensors.md) | BNO055, INA219, battery |
-| [docs/hardware/raspberry_pi.md](docs/hardware/raspberry_pi.md) | RPi 4 setup + systemd autostart |
+| [cad/Loki_v1.step](cad/Loki_v1.step) | Full assembly STEP file (33 MB) |
+| [cad/bom.csv](cad/bom.csv) | Full BOM with prices |
+
+### Scripts
+| Script | Description |
+|--------|-------------|
+| [scripts/setup_rpi.sh](scripts/setup_rpi.sh) | Automated ROS2 Iron + micro_ros_agent setup |
+| [scripts/flash_esp32.sh](scripts/flash_esp32.sh) | One-command ESP32 flash |
 
 ---
 

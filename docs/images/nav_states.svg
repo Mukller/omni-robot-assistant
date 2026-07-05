@@ -1,0 +1,96 @@
+<svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">
+  <rect width="560" height="340" fill="#0d1117"/>
+  <text x="280" y="26" text-anchor="middle" fill="#58a6ff" font-size="14" font-weight="bold">Состояния навигации Loki</text>
+
+  <!-- State boxes -->
+  <!-- IDLE -->
+  <rect x="14" y="50" width="110" height="48" rx="8" fill="#1c2128" stroke="#30363d" stroke-width="1.5"/>
+  <text x="69" y="72" text-anchor="middle" fill="#8b949e" font-size="11" font-weight="bold">IDLE</text>
+  <text x="69" y="89" text-anchor="middle" fill="#8b949e" font-size="9">ожидание цели</text>
+
+  <!-- MAPPING -->
+  <rect x="180" y="50" width="120" height="48" rx="8" fill="#0f2a1a" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="240" y="72" text-anchor="middle" fill="#3fb950" font-size="11" font-weight="bold">MAPPING</text>
+  <text x="240" y="89" text-anchor="middle" fill="#3fb950" font-size="9">Cartographer SLAM</text>
+
+  <!-- EXPLORING -->
+  <rect x="360" y="50" width="120" height="48" rx="8" fill="#0d2233" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="420" y="72" text-anchor="middle" fill="#58a6ff" font-size="11" font-weight="bold">EXPLORING</text>
+  <text x="420" y="89" text-anchor="middle" fill="#58a6ff" font-size="9">explore_lite фронтиры</text>
+
+  <!-- NAVIGATING -->
+  <rect x="180" y="155" width="120" height="48" rx="8" fill="#0d1a2d" stroke="#388bfd" stroke-width="1.5"/>
+  <text x="240" y="177" text-anchor="middle" fill="#388bfd" font-size="11" font-weight="bold">NAVIGATING</text>
+  <text x="240" y="194" text-anchor="middle" fill="#388bfd" font-size="9">Nav2 + DWB</text>
+
+  <!-- RECOVERING -->
+  <rect x="360" y="155" width="120" height="48" rx="8" fill="#2d1700" stroke="#d29922" stroke-width="1.5"/>
+  <text x="420" y="177" text-anchor="middle" fill="#d29922" font-size="11" font-weight="bold">RECOVERING</text>
+  <text x="420" y="194" text-anchor="middle" fill="#d29922" font-size="9">spin/backup/wait</text>
+
+  <!-- ESTOP -->
+  <rect x="14" y="155" width="110" height="48" rx="8" fill="#2d0a0a" stroke="#f85149" stroke-width="1.5"/>
+  <text x="69" y="177" text-anchor="middle" fill="#f85149" font-size="11" font-weight="bold">E-STOP</text>
+  <text x="69" y="194" text-anchor="middle" fill="#f85149" font-size="9">low-batt / overcurrent</text>
+
+  <!-- RETURNING -->
+  <rect x="180" y="255" width="120" height="48" rx="8" fill="#1a0d2d" stroke="#a371f7" stroke-width="1.5"/>
+  <text x="240" y="277" text-anchor="middle" fill="#a371f7" font-size="11" font-weight="bold">RETURNING</text>
+  <text x="240" y="294" text-anchor="middle" fill="#a371f7" font-size="9">return_to_init</text>
+
+  <!-- Arrows -->
+  <!-- IDLE → MAPPING -->
+  <line x1="124" y1="74" x2="178" y2="74" stroke="#3fb950" stroke-width="1.5" marker-end="url(#g)"/>
+  <text x="151" y="68" text-anchor="middle" fill="#3fb950" font-size="8">старт SLAM</text>
+
+  <!-- MAPPING → EXPLORING -->
+  <line x1="300" y1="74" x2="358" y2="74" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#b)"/>
+  <text x="329" y="68" text-anchor="middle" fill="#58a6ff" font-size="8">explore</text>
+
+  <!-- EXPLORING → NAVIGATING -->
+  <line x1="420" y1="98" x2="420" y2="135" stroke="#388bfd" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="420" y1="135" x2="302" y2="155" stroke="#388bfd" stroke-width="1.5" marker-end="url(#bb)"/>
+  <text x="390" y="130" text-anchor="middle" fill="#388bfd" font-size="8">цель задана</text>
+
+  <!-- NAVIGATING → RECOVERING -->
+  <line x1="300" y1="179" x2="358" y2="179" stroke="#d29922" stroke-width="1.5" marker-end="url(#y)"/>
+  <text x="329" y="173" text-anchor="middle" fill="#d29922" font-size="8">застрял</text>
+
+  <!-- RECOVERING → NAVIGATING -->
+  <line x1="358" y1="190" x2="300" y2="190" stroke="#388bfd" stroke-width="1.5" marker-end="url(#bb)"/>
+  <text x="329" y="204" text-anchor="middle" fill="#388bfd" font-size="8">восстановился</text>
+
+  <!-- NAVIGATING → RETURNING (explore done) -->
+  <line x1="240" y1="203" x2="240" y2="253" stroke="#a371f7" stroke-width="1.5" marker-end="url(#p)"/>
+  <text x="255" y="234" fill="#a371f7" font-size="8">карта готова</text>
+
+  <!-- RETURNING → IDLE -->
+  <path d="M180,279 L69,279 L69,203" stroke="#8b949e" stroke-width="1.5" fill="none" marker-end="url(#gr)"/>
+  <text x="100" y="273" fill="#8b949e" font-size="8">дома</text>
+
+  <!-- any → ESTOP -->
+  <line x1="180" y1="179" x2="126" y2="179" stroke="#f85149" stroke-width="1.5" marker-end="url(#r)"/>
+  <text x="153" y="173" text-anchor="middle" fill="#f85149" font-size="8">авария</text>
+
+  <!-- ESTOP → IDLE -->
+  <line x1="69" y1="155" x2="69" y2="100" stroke="#8b949e" stroke-width="1.5" marker-end="url(#gr)"/>
+  <text x="50" y="130" text-anchor="middle" fill="#8b949e" font-size="8">сброс</text>
+
+  <!-- IDLE → NAVIGATING (direct goal) -->
+  <path d="M69,98 L69,179 L178,179" stroke="#388bfd" stroke-width="1" stroke-dasharray="3,2" fill="none" marker-end="url(#bb)"/>
+
+  <!-- microROS + Nav2 labels at bottom -->
+  <rect x="14" y="315" width="532" height="20" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <text x="280" y="329" text-anchor="middle" fill="#8b949e" font-size="9">ESP32 microROS UDP → RPi4 · Cartographer 2D SLAM · Nav2 (DWB) · explore_lite · robot_localization EKF</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="g"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#3fb950"/></marker>
+    <marker id="b"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#58a6ff"/></marker>
+    <marker id="bb" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#388bfd"/></marker>
+    <marker id="y"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#d29922"/></marker>
+    <marker id="r"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#f85149"/></marker>
+    <marker id="p"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#a371f7"/></marker>
+    <marker id="gr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#8b949e"/></marker>
+  </defs>
+</svg>

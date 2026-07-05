@@ -1,0 +1,89 @@
+<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,sans-serif">
+  <!-- Background -->
+  <rect width="400" height="400" fill="#0d1117"/>
+
+  <!-- Title -->
+  <text x="200" y="28" text-anchor="middle" fill="#58a6ff" font-size="15" font-weight="bold">Loki 200mm — вид сверху</text>
+
+  <!-- Chassis circle -->
+  <circle cx="200" cy="210" r="95" fill="#1c2128" stroke="#30363d" stroke-width="2"/>
+  <circle cx="200" cy="210" r="2" fill="#58a6ff"/>
+
+  <!-- Front indicator arrow -->
+  <polygon points="200,118 193,138 207,138" fill="#58a6ff" opacity="0.8"/>
+  <text x="200" y="112" text-anchor="middle" fill="#58a6ff" font-size="11">вперёд</text>
+
+  <!-- Left wheel -->
+  <rect x="100" y="178" width="20" height="64" rx="4" fill="#388bfd" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="84" y="214" text-anchor="middle" fill="#8b949e" font-size="10">L</text>
+
+  <!-- Right wheel -->
+  <rect x="280" y="178" width="20" height="64" rx="4" fill="#388bfd" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="316" y="214" text-anchor="middle" fill="#8b949e" font-size="10">R</text>
+
+  <!-- Caster ball (front) -->
+  <circle cx="200" cy="145" r="10" fill="#30363d" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="200" y="140" text-anchor="middle" fill="#8b949e" font-size="8">⊙</text>
+
+  <!-- Raspberry Pi 4 -->
+  <rect x="158" y="175" width="84" height="56" rx="4" fill="#0f2a1a" stroke="#3fb950" stroke-width="1.5"/>
+  <text x="200" y="200" text-anchor="middle" fill="#3fb950" font-size="9" font-weight="bold">Raspberry Pi 4</text>
+  <text x="200" y="215" text-anchor="middle" fill="#3fb950" font-size="8">ROS2 Iron</text>
+  <text x="200" y="228" text-anchor="middle" fill="#3fb950" font-size="8">4 GB RAM</text>
+
+  <!-- ESP32 -->
+  <rect x="162" y="238" width="76" height="34" rx="3" fill="#1a1f0f" stroke="#d29922" stroke-width="1.5"/>
+  <text x="200" y="253" text-anchor="middle" fill="#d29922" font-size="9" font-weight="bold">ESP32</text>
+  <text x="200" y="266" text-anchor="middle" fill="#d29922" font-size="8">microROS · L298N</text>
+
+  <!-- LiDAR on top -->
+  <circle cx="200" cy="155" r="16" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="200" y="152" text-anchor="middle" fill="#58a6ff" font-size="8">LiDAR</text>
+  <text x="200" y="163" text-anchor="middle" fill="#58a6ff" font-size="7">X4</text>
+  <!-- LiDAR scan lines -->
+  <g stroke="#58a6ff" stroke-width="0.5" opacity="0.25">
+    <line x1="200" y1="155" x2="128" y2="120"/>
+    <line x1="200" y1="155" x2="272" y2="120"/>
+    <line x1="200" y1="155" x2="110" y2="165"/>
+    <line x1="200" y1="155" x2="290" y2="165"/>
+    <line x1="200" y1="155" x2="145" y2="260"/>
+    <line x1="200" y1="155" x2="255" y2="260"/>
+  </g>
+
+  <!-- Wheel base dimension -->
+  <line x1="120" y1="310" x2="280" y2="310" stroke="#8b949e" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="200" y="325" text-anchor="middle" fill="#8b949e" font-size="10">колёсная база 172 мм</text>
+
+  <!-- Diameter dimension -->
+  <line x1="350" y1="115" x2="350" y2="305" stroke="#8b949e" stroke-width="1"/>
+  <text x="370" y="215" text-anchor="middle" fill="#8b949e" font-size="10" transform="rotate(90,370,215)">∅ 200 мм</text>
+
+  <!-- Wheel radius annotation -->
+  <text x="88" y="174" text-anchor="middle" fill="#8b949e" font-size="9">r=37.5</text>
+
+  <!-- UDP arrow (ESP32 → RPi) -->
+  <path d="M200,236 L200,232" stroke="#d29922" stroke-width="1.5" marker-end="url(#arrd)"/>
+
+  <!-- Legend -->
+  <rect x="12" y="342" width="376" height="46" rx="4" fill="#161b22" stroke="#30363d" stroke-width="1"/>
+  <circle cx="28" cy="358" r="5" fill="#388bfd"/>
+  <text x="38" y="362" fill="#c9d1d9" font-size="9">Моторы JGA25-370 (12В, 40:1)</text>
+  <rect x="155" y="353" width="10" height="6" rx="1" fill="#0f2a1a" stroke="#3fb950" stroke-width="1"/>
+  <text x="170" y="362" fill="#c9d1d9" font-size="9">Raspberry Pi 4</text>
+  <rect x="248" y="353" width="10" height="6" rx="1" fill="#1a1f0f" stroke="#d29922" stroke-width="1"/>
+  <text x="263" y="362" fill="#c9d1d9" font-size="9">ESP32 + L298N</text>
+  <circle cx="28" cy="378" r="5" fill="#161b22" stroke="#58a6ff" stroke-width="1.5"/>
+  <text x="38" y="382" fill="#c9d1d9" font-size="9">YDLidar X4 (360°, 10 м)</text>
+  <circle cx="155" cy="378" r="5" fill="#30363d" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="2,1"/>
+  <text x="165" y="382" fill="#c9d1d9" font-size="9">Шаровой кастер</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#8b949e"/>
+    </marker>
+    <marker id="arrd" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#d29922"/>
+    </marker>
+  </defs>
+</svg>

@@ -156,41 +156,32 @@ ros2/
 
 ### 1. Прошивка ESP32
 ```bash
-# Настроить WiFi в firmware/src/wifi_config.h
-cd firmware
-pio run --target upload --environment esp32dev
-pio device monitor   # проверить подключение
+# Заполнить firmware/src/wifi_config.h (SSID, пароль, IP агента)
+bash scripts/flash_esp32.sh          # автодетект порта
+# или: bash scripts/flash_esp32.sh /dev/ttyUSB0
 ```
 
 ### 2. Настройка Raspberry Pi 4
 
 ```bash
-# Установка ROS2 Iron
-sudo apt install -y ros-iron-desktop ros-iron-nav2-bringup \
-    ros-iron-cartographer-ros ros-iron-explore-lite \
-    ros-iron-micro-ros-agent ros-iron-robot-localization
-
-# Сборка пакета
-mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
-git clone https://github.com/Mukller/omni-robot-assistant.git
-cp -r omni-robot-assistant/ros2 loki_robot
-cd ~/ros2_ws
-colcon build && source install/setup.bash
+# Автоматическая установка ROS2 Iron + micro_ros_agent + systemd
+bash scripts/setup_rpi.sh
+sudo reboot
 ```
 
 ### 3. Запуск
 
 ```bash
-# Полный стек (SLAM + Nav2 + microROS agent)
+# Полный стек: Cartographer SLAM + Nav2 + microROS agent
 ros2 launch loki_robot loki_bringup.launch.py
 
-# Автономное исследование
+# Автономное исследование помещения
 ros2 launch loki_robot explore.launch.py
 
 # Сохранить карту
 python3 host/map_saver.py
 
-# Веб-интерфейс телеметрии
+# Веб-телеметрия
 python3 host/web_monitor.py  # → http://robot-ip:5000
 ```
 
@@ -198,21 +189,40 @@ python3 host/web_monitor.py  # → http://robot-ip:5000
 
 ## Документация
 
+### Начало работы
 | Документ | Описание |
 |----------|----------|
+| [docs/faq.md](docs/faq.md) | Частые вопросы (железо, прошивка, ROS2, печать) |
+| [docs/troubleshooting.md](docs/troubleshooting.md) | Решение проблем ESP32, RPi, питания, механики |
+| [docs/assembly.md](docs/assembly.md) | Сборка с параметрами 3D-печати |
 | [docs/wiring.md](docs/wiring.md) | Полная схема подключения |
-| [docs/assembly.md](docs/assembly.md) | Сборка с параметрами печати |
 | [docs/calibration.md](docs/calibration.md) | Калибровка энкодеров, IMU, PID |
+
+### Программное обеспечение
+| Документ | Описание |
+|----------|----------|
 | [docs/ros2_setup.md](docs/ros2_setup.md) | Установка ROS2 Iron на RPi 4 |
 | [docs/ros2_architecture.md](docs/ros2_architecture.md) | Топология нод, топики, TF-дерево |
-| [docs/lidar_compatibility.md](docs/lidar_compatibility.md) | Таблица совместимых LiDAR |
-| [docs/stl_files.md](docs/stl_files.md) | Список STL с настройками печати |
+| [docs/roadmap.md](docs/roadmap.md) | Роадмап v1.0–v2.0 + известные ограничения |
+
+### Железо и CAD
+| Документ | Описание |
+|----------|----------|
 | [docs/hardware/ydlidar_x4.md](docs/hardware/ydlidar_x4.md) | Характеристики YDLidar X4 |
-| [docs/hardware/motors_and_wheels.md](docs/hardware/motors_and_wheels.md) | Моторы, колёса, L298N |
-| [docs/hardware/sensors.md](docs/hardware/sensors.md) | BNO055, INA219, аккумулятор |
-| [docs/hardware/raspberry_pi.md](docs/hardware/raspberry_pi.md) | Настройка RPi 4 + systemd |
+| [docs/hardware/motors_and_wheels.md](docs/hardware/motors_and_wheels.md) | Моторы JGA25-370, колёса, L298N |
+| [docs/hardware/sensors.md](docs/hardware/sensors.md) | BNO055, INA219, аккумулятор LiPo 3S |
+| [docs/hardware/raspberry_pi.md](docs/hardware/raspberry_pi.md) | Настройка RPi 4 + systemd автозапуск |
+| [docs/lidar_compatibility.md](docs/lidar_compatibility.md) | Таблица 20+ совместимых LiDAR |
+| [docs/stl_files.md](docs/stl_files.md) | Список STL с настройками печати |
+| [cad/Loki_v1.step](cad/Loki_v1.step) | STEP-файл полной сборки (33 МБ) |
 | [cad/bom.csv](cad/bom.csv) | Полный BOM с ценами |
 | [cad/SOURCES.md](cad/SOURCES.md) | CAD-источники, STL-ссылки |
+
+### Скрипты
+| Скрипт | Описание |
+|--------|----------|
+| [scripts/setup_rpi.sh](scripts/setup_rpi.sh) | Автоустановка ROS2 Iron + micro_ros_agent на RPi |
+| [scripts/flash_esp32.sh](scripts/flash_esp32.sh) | Прошивка ESP32 одной командой |
 
 ---
 

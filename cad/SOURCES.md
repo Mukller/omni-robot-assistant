@@ -16,5 +16,10 @@
 - GrabCAD — L298N mounting bracket templates
 
 ## CAD Files
-- `Loki v1.step` — SolidWorks STEP export (full assembly)
-- `fusion360/Loki v550.f3z` — Fusion 360 archive
+
+| Файл | Формат | Размер | Описание |
+|------|--------|--------|----------|
+| [`Loki_v1.step`](Loki_v1.step) | STEP AP214 | ~33 МБ | Полная сборка Loki v1 (все детали) |
+
+> STEP-файл открывается в: FreeCAD (бесплатно), Fusion 360, SolidWorks, CATIA, OnShape (браузер).
+> Онлайн-просмотр: загрузить на [3dviewer.net](https://3dviewer.net) или [sharecad.org](https://sharecad.org).
