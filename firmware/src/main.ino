@@ -11,6 +11,7 @@
 #include "battery_monitor.h"
 #include "safety.h"
 #include "microros_bridge.h"
+#include "ota_update.h"
 
 MotorDriver   motorL(MOT_L_IN1, MOT_L_IN2, MOT_L_EN);
 MotorDriver   motorR(MOT_R_IN1, MOT_R_IN2, MOT_R_EN);
@@ -26,8 +27,8 @@ BatteryMonitor batt(BATT_PIN);
 SafetyMonitor  safety(motorL, motorR, pidL, pidR);
 MicroROSBridge ros;
 
-// Max linear speed of wheel in m/s (used for idle watchdog)
-static constexpr float MAX_VEL_MS = 0.61f;
+// Max wheel speed: JGA25-370 12V 40:1 ≈ 100 RPM no-load → 2π×0.0375×100/60 ≈ 0.39 m/s
+static constexpr float MAX_VEL_MS = 0.39f;
 
 unsigned long lastMs = 0;
 
@@ -48,6 +49,8 @@ void setup() {
     Serial.printf("[WiFi] Connecting to %s\n", WIFI_SSID);
     ros.begin(AGENT_IP, AGENT_PORT);
     Serial.println("[microROS] Agent connected");
+
+    setupOTA(OTA_PASSWORD);  // OTA updates: pio run -t upload --upload-port <ip>
 }
 
 void loop() {
@@ -94,7 +97,8 @@ void loop() {
     motorL.setSpeed(pwmL);
     motorR.setSpeed(pwmR);
 
-    // ── microROS spin (receive cmd_vel, send odom/imu/battery) ──────────
+    // ── OTA + microROS spin ──────────────────────────────────────────────
+    ArduinoOTA.handle();
     ros.spinOnce();
 
     // Publish odometry at full rate

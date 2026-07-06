@@ -48,10 +48,13 @@ Pull-ups: 4.7 kΩ to 3.3 V on SDA and SCL.
 ## Voltage Divider for Battery ADC
 
 ```
-LiPo+ ──┤ 100 kΩ ├──┬──┤ 220 kΩ ├── GND
+LiPo+ ──┤ 100 kΩ ├──┬──┤ 33 kΩ ├── GND
                      │
                   GPIO 36 (max 3.3 V)
 ```
 
-Scale factor in firmware: `V_bat = adc_voltage × (100+220) / 220`  
-Full charge (12.6 V) → ~1.79 V at GPIO 36. Stays safely below 3.3 V limit.
+Scale factor in firmware: `V_bat = adc_voltage × (100 + 33) / 33 ≈ adc_voltage × 4.03`  
+BatteryMonitor uses `dividerRatio = 4.0f` (close enough — ~0.7 % error).  
+Full charge (12.6 V) → **3.13 V** at GPIO 36. Under the 3.3 V ADC limit.
+
+> Use 1% tolerance resistors for accuracy. Available in E96 series: 100kΩ + 33.2kΩ.

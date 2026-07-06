@@ -5,9 +5,23 @@
   <description>ROS2 Iron package for Loki 200mm home robot assistant</description>
   <maintainer email="anton.petnitsky@gmail.com">Anton</maintainer>
   <license>MIT</license>
-  <depend>rclcpp</depend>
-  <depend>nav2_bringup</depend>
-  <depend>cartographer_ros</depend>
-  <depend>explore_lite</depend>
+
   <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- Build dependencies -->
+  <depend>rclcpp</depend>
+
+  <!-- Runtime dependencies -->
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>nav2_map_server</exec_depend>
+  <exec_depend>cartographer_ros</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>micro_ros_agent</exec_depend>
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+
+  <!-- explore_lite is built from source in the same workspace -->
+  <exec_depend>explore_lite</exec_depend>
 </package>
