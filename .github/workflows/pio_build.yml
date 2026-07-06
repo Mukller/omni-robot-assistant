@@ -37,7 +37,7 @@ jobs:
 
       - name: Run unit tests (host)
         working-directory: firmware
-        run: pio test --environment native --filter test_pid --filter test_odometry
+        run: pio test --environment native --filter test_pid --filter test_odometry --filter test_encoder
         continue-on-error: true
 
       - name: Upload build artifacts
