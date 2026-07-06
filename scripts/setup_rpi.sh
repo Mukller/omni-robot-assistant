@@ -65,33 +65,52 @@ sudo apt-get install -y \
   python3-rosdep
 
 # ─── explore_lite ─────────────────────────────────────────────────────────────
-info "Building explore_lite from source..."
+info "Setting up ROS2 workspace..."
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
+
+# explore_lite (frontier exploration)
 if [ ! -d "m-explore-ros2" ]; then
   git clone https://github.com/robo-friends/m-explore-ros2.git
 fi
+
+# loki_robot package (this repo's ROS2 code)
+LOKI_SRC="$HOME/omni-robot-assistant/ros2"
+if [ ! -L "loki_robot" ] && [ -d "$LOKI_SRC" ]; then
+  ln -s "$LOKI_SRC" loki_robot
+  info "Linked ros2/ → ~/ros2_ws/src/loki_robot"
+fi
+
 cd ~/ros2_ws
 rosdep init 2>/dev/null || true
 rosdep update
 rosdep install --from-paths src --ignore-src -r -y
-colcon build --symlink-install --packages-select explore_lite
+colcon build --symlink-install
 grep -q "source ~/ros2_ws/install/setup.bash" ~/.bashrc || \
   echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 # ─── microROS agent ───────────────────────────────────────────────────────────
-info "Configuring micro_ros_agent..."
+info "Configuring micro_ros_agent systemd service..."
+# NOTE: systemd services cannot use `source`; use a wrapper script instead.
+cat > /tmp/microros_start.sh << 'EOF'
+#!/bin/bash
+source /opt/ros/iron/setup.bash
+exec ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+EOF
+chmod +x /tmp/microros_start.sh
+sudo mv /tmp/microros_start.sh /usr/local/bin/microros_start.sh
+
 cat > /tmp/microros.service << 'EOF'
 [Unit]
-Description=micro-ROS Agent (UDP)
-After=network.target
+Description=micro-ROS Agent (UDP port 8888)
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 User=REPLACE_USER
 Environment="ROS_DOMAIN_ID=0"
-ExecStartPre=/bin/bash -c "source /opt/ros/iron/setup.bash"
-ExecStart=/bin/bash -c "source /opt/ros/iron/setup.bash && ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888"
-Restart=always
+ExecStart=/usr/local/bin/microros_start.sh
+Restart=on-failure
 RestartSec=5
 
 [Install]
@@ -139,7 +158,7 @@ cat >> ~/.bashrc << 'ALIASES'
 # Loki robot aliases
 alias loki-agent='ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888'
 alias loki-teleop='ros2 run teleop_twist_keyboard teleop_twist_keyboard'
-alias loki-rviz='rviz2 -d ~/ros2_ws/src/loki_robot/rviz/nav2.rviz'
+alias loki-rviz='rviz2 -d ~/ros2_ws/src/loki_robot/rviz/navigation.rviz'
 alias loki-topics='ros2 topic list | grep -v /_'
 alias loki-hz='ros2 topic hz /scan && ros2 topic hz /odom'
 ALIASES

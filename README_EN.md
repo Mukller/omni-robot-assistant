@@ -16,6 +16,8 @@ ESP32 + microROS · Raspberry Pi 4 · ROS2 Iron · Cartographer SLAM · Nav2
 [![PlatformIO](https://img.shields.io/badge/PlatformIO-ESP32-orange)](https://platformio.org/)
 [![Platform](https://img.shields.io/badge/Platform-Raspberry%20Pi%204-red)](https://www.raspberrypi.com/)
 [![kaiaai/LDS](https://img.shields.io/badge/LiDAR-kaiaai%2FLDS-informational)](https://github.com/kaiaai/LDS)
+[![PlatformIO Build](https://github.com/Mukller/omni-robot-assistant/actions/workflows/pio_build.yml/badge.svg)](https://github.com/Mukller/omni-robot-assistant/actions/workflows/pio_build.yml)
+[![ROS2 Build](https://github.com/Mukller/omni-robot-assistant/actions/workflows/ros2_build.yml/badge.svg)](https://github.com/Mukller/omni-robot-assistant/actions/workflows/ros2_build.yml)
 
 </div>
 

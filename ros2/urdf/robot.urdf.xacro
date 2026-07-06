@@ -6,6 +6,25 @@
   <xacro:property name="wheel_base"     value="0.172"/>
   <xacro:property name="robot_height"   value="0.12"/>
 
+  <!-- Inertia macros: solid cylinder I = m/12*(3r²+h²) for xx/yy, m/2*r² for zz -->
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertial>
+      <mass value="${m}"/>
+      <inertia ixx="${m/12*(3*r*r+h*h)}" ixy="0" ixz="0"
+               iyy="${m/12*(3*r*r+h*h)}" iyz="0"
+               izz="${m/2*r*r}"/>
+    </inertial>
+  </xacro:macro>
+
+  <xacro:macro name="sphere_inertia" params="m r">
+    <inertial>
+      <mass value="${m}"/>
+      <inertia ixx="${2/5*m*r*r}" ixy="0" ixz="0"
+               iyy="${2/5*m*r*r}" iyz="0"
+               izz="${2/5*m*r*r}"/>
+    </inertial>
+  </xacro:macro>
+
   <link name="base_footprint"/>
   <link name="base_link">
     <visual>
@@ -15,6 +34,8 @@
     <collision>
       <geometry><cylinder radius="0.1" length="${robot_height}"/></geometry>
     </collision>
+    <!-- Total robot ~1.42 kg minus two wheels (2×0.05 kg) -->
+    <xacro:cylinder_inertia m="1.32" r="0.1" h="${robot_height}"/>
   </link>
 
   <joint name="base_joint" type="fixed">
@@ -26,28 +47,64 @@
   <link name="wheel_left_link">
     <visual>
       <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+      <material name="black"><color rgba="0.1 0.1 0.1 1"/></material>
     </visual>
+    <collision>
+      <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+    </collision>
+    <xacro:cylinder_inertia m="0.05" r="${wheel_radius}" h="${wheel_width}"/>
   </link>
   <joint name="wheel_left_joint" type="continuous">
     <parent link="base_link"/>
     <child  link="wheel_left_link"/>
     <origin xyz="0 ${wheel_base/2} 0" rpy="-1.5707 0 0"/>
     <axis xyz="0 0 1"/>
+    <dynamics damping="0.01" friction="0.1"/>
   </joint>
 
   <link name="wheel_right_link">
     <visual>
       <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+      <material name="black"><color rgba="0.1 0.1 0.1 1"/></material>
     </visual>
+    <collision>
+      <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+    </collision>
+    <xacro:cylinder_inertia m="0.05" r="${wheel_radius}" h="${wheel_width}"/>
   </link>
   <joint name="wheel_right_joint" type="continuous">
     <parent link="base_link"/>
     <child  link="wheel_right_link"/>
     <origin xyz="0 -${wheel_base/2} 0" rpy="-1.5707 0 0"/>
     <axis xyz="0 0 1"/>
+    <dynamics damping="0.01" friction="0.1"/>
   </joint>
 
-  <link name="laser"/>
+  <!-- Front caster (passive ball) -->
+  <xacro:property name="caster_r" value="0.015"/>
+  <link name="caster_link">
+    <visual>
+      <geometry><sphere radius="${caster_r}"/></geometry>
+      <material name="grey"><color rgba="0.5 0.5 0.5 1"/></material>
+    </visual>
+    <collision>
+      <geometry><sphere radius="${caster_r}"/></geometry>
+    </collision>
+    <xacro:sphere_inertia m="0.01" r="${caster_r}"/>
+  </link>
+  <joint name="caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child  link="caster_link"/>
+    <!-- front-centre of body, touching ground -->
+    <origin xyz="0.08 0 ${-wheel_radius + caster_r}"/>
+  </joint>
+
+  <link name="laser">
+    <visual>
+      <geometry><cylinder radius="0.035" length="0.04"/></geometry>
+      <material name="blue"><color rgba="0.1 0.3 0.8 1"/></material>
+    </visual>
+  </link>
   <joint name="laser_joint" type="fixed">
     <parent link="base_link"/>
     <child  link="laser"/>
