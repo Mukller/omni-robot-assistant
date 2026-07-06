@@ -1,4 +1,5 @@
 import os
+import xacro
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -34,7 +35,8 @@ def generate_launch_description():
             package='robot_state_publisher',
             executable='robot_state_publisher',
             parameters=[{
-                'robot_description': open(os.path.join(pkg, 'urdf', 'robot.urdf.xacro')).read(),
+                'robot_description': xacro.process_file(
+                    os.path.join(pkg, 'urdf', 'robot.urdf.xacro')).toxml(),
                 'use_sim_time': True,
             }],
         ),

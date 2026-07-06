@@ -1,6 +1,6 @@
 # Roadmap
 
-## v1.0 — Базовая платформа ✅ (Апрель 2025)
+## v1.0 — Базовая платформа ✅ (Апрель 2026)
 
 - [x] Дифференциальный привод JGA25-370 + L298N
 - [x] Квадратурные энкодеры (1920 тиков/об)
@@ -19,10 +19,18 @@
 
 ---
 
-## v1.1 — Улучшения навигации (Q3 2025)
+## v1.1 — Стабилизация и баги ✅ (Июль 2026)
 
-- [ ] **Динамическое препятствие** — интеграция с Nav2 costmap для людей и движущихся объектов
-- [ ] **Улучшенный EKF** — добавить fusion данных колёсной одометрии + IMU для коррекции скольжения
+- [x] **Исправлена постоянная e-stop** — cmd_vel timeout теперь auto-clear; батарея/перегрузка лэтчатся
+- [x] **Startup e-stop** — `_lastCmdMs` инициализируется `millis()`, нет ложного таймаута при старте
+- [x] **PID anti-windup** — интеграл не накапливается при Ki=0
+- [x] **Midpoint odometry** — используется угол θ+dθ/2 для корректной интеграции положения
+- [x] **IMU в Cartographer** — `use_imu_data=true`, `tracking_frame="imu_link"`
+- [x] **EKF** — 50Гц, полная матрица шума процесса, `odom0_differential: false`
+- [x] **Gazebo launch** — xacro обрабатывается через `xacro.process_file()` (не raw read)
+- [x] **SLAM launch** — добавлен `robot_state_publisher` (TF был сломан)
+- [x] **Nav2 тюнинг** — max_vel_x=0.22 м/с, inflation_radius=0.18 м, robot_radius=0.12 м
+- [x] **CI** — PlatformIO + ROS2 Build GitHub Actions
 - [ ] **Velocity smoother** — плавные профили скорости для снижения wear на моторах
 - [ ] **Waypoint following** — маршрутные точки через RViz (Nav2 waypoint follower уже включён)
 - [ ] **Multi-floor mapping** — сохранение/загрузка нескольких карт для разных помещений

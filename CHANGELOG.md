@@ -3,6 +3,15 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.1] — 2026-07-07
+
+### Fixed
+- `firmware/src/odometry.cpp` — position integration used updated heading θ+dθ instead of midpoint θ+dθ/2, causing systematic drift in curves
+- `ros2/launch/gazebo.launch.py` — raw-read of `.xacro` passed unexpanded XML to `robot_description`; replaced with `xacro.process_file()`
+- `docs/faq.md` — max speed still said 0.61 m/s (stale); corrected to 0.39 m/s; broken link to nonexistent `lidar_compatibility.md` replaced with upstream kaiaai/LDS URL
+- `docs/roadmap.md` — v1.0 date was 2025 (typo); v1.1 completed items now checked off
+- `ros2/rviz/navigation.rviz` — `Nav2Panel` was listed under Displays (wrong section); moved to Panels; added `/odometry/filtered`, TF, and Particle Cloud displays
+
 ## [1.1.0] — 2026-07-07
 
 ### Fixed (Critical)

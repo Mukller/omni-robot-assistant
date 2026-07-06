@@ -14,9 +14,11 @@ void Odometry::update(long leftTicks, long rightTicks) {
     float dDist  = (dR + dL) / 2.0f;
     float dTheta = (dR - dL) / _wb;
 
+    // Use midpoint angle to avoid systematic heading error at high curvature
+    float thetaMid = _pose.theta + dTheta * 0.5f;
     _pose.theta += dTheta;
-    _pose.x     += dDist * cosf(_pose.theta);
-    _pose.y     += dDist * sinf(_pose.theta);
+    _pose.x     += dDist * cosf(thetaMid);
+    _pose.y     += dDist * sinf(thetaMid);
 }
 
 void Odometry::reset() { _pose = {}; _prevL = _prevR = 0; }
