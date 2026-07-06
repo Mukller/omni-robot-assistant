@@ -1,0 +1,57 @@
+name: ROS2 Package Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ros2/**'
+      - '.github/workflows/ros2_build.yml'
+  pull_request:
+    paths:
+      - 'ros2/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    container:
+      image: ros:iron-ros-base
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update -q
+          apt-get install -y -q python3-colcon-common-extensions python3-rosdep
+          rosdep update
+          rosdep install --from-paths ros2 --ignore-src -r -y \
+            --skip-keys "explore_lite" || true
+
+      - name: Build loki_robot package
+        run: |
+          mkdir -p ws/src
+          ln -s $GITHUB_WORKSPACE/ros2 ws/src/loki_robot
+          cd ws
+          source /opt/ros/iron/setup.bash
+          colcon build --packages-select loki_robot \
+            --cmake-args -DCMAKE_BUILD_TYPE=Release
+        shell: bash
+
+      - name: Validate launch files (dry-run)
+        run: |
+          source /opt/ros/iron/setup.bash
+          source ws/install/setup.bash
+          python3 -c "
+          import subprocess, sys, pathlib
+          launches = list(pathlib.Path('ros2/launch').glob('*.launch.py'))
+          errs = []
+          for f in launches:
+              r = subprocess.run(['python3', '-c', open(f).read().replace('generate_launch_description()', 'pass')],
+                                 capture_output=True, text=True)
+              if r.returncode != 0:
+                  errs.append(f'{f.name}: {r.stderr.strip()}')
+          if errs:
+              print('\\n'.join(errs)); sys.exit(1)
+          print(f'All {len(launches)} launch files parse OK')
+          "
+        shell: bash
