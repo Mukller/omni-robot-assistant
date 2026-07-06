@@ -20,7 +20,8 @@ void MicroROSBridge::_cmdCallback(const void* msg) {
 }
 
 bool MicroROSBridge::begin(const char* agentIP, int agentPort) {
-    _instance = this;
+    _instance  = this;
+    _lastCmdMs = millis();  // prevents instant cmd_vel timeout on startup
 
     // Connect WiFi + establish UDP transport to micro_ros_agent
     set_microros_wifi_transports(WIFI_SSID, WIFI_PASS, agentIP, agentPort);

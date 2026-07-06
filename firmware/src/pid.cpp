@@ -6,9 +6,14 @@ PID::PID(float kp, float ki, float kd, float outMin, float outMax)
 
 float PID::compute(float setpoint, float measured, float dt) {
     float err = setpoint - measured;
-    _integral += err * dt;
-    // Anti-windup clamp
-    _integral = std::max(_outMin / _ki, std::min(_outMax / _ki, _integral));
+
+    // Only accumulate integral when Ki is active — avoids divide-by-zero in clamp
+    if (_ki != 0.0f) {
+        _integral += err * dt;
+        // Anti-windup: clamp integral so Ki*integral never exceeds output limits
+        _integral = std::max(_outMin / _ki, std::min(_outMax / _ki, _integral));
+    }
+
     float deriv = (err - _prevErr) / dt;
     _prevErr = err;
     float out = _kp * err + _ki * _integral + _kd * deriv;

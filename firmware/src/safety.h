@@ -20,8 +20,9 @@ private:
     PID&         _pL;
     PID&         _pR;
 
-    bool _estop   = false;
-    bool _battLow = false;
+    bool _estop        = false;
+    bool _battLow      = false;
+    bool _latchedFault = false;  // true when battery/overcurrent latch is active
 
     static constexpr float         BATT_LOW_V      = 10.5f;
     static constexpr float         OVERCURRENT_A   = 2.5f;

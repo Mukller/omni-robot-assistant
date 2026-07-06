@@ -12,6 +12,7 @@ def generate_launch_description():
             name='teleop_keyboard',
             parameters=[os.path.join(pkg, 'config', 'teleop_keyboard.yaml')],
             output='screen',
-            prefix='xterm -e',
+            # Note: teleop_twist_keyboard requires a terminal with keyboard focus.
+            # Run in a dedicated terminal: ros2 run teleop_twist_keyboard teleop_twist_keyboard
         ),
     ])
