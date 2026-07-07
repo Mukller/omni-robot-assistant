@@ -12,7 +12,10 @@ class IMU {
 public:
     bool    begin();
     IMUData read();
-    float   getHeading();   // degrees 0–360
+    // One I2C read for all three Euler angles — prefer getEuler() over calling
+    // getHeading/getPitch/getRoll individually to avoid 3 separate I2C transactions.
+    imu::Vector<3> getEuler();
+    float   getHeading();   // degrees 0–360 (calls getEuler internally)
     float   getPitch();
     float   getRoll();
     bool    isCalibrated();

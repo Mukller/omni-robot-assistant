@@ -34,20 +34,13 @@ IMUData IMU::read() {
     return d;
 }
 
-float IMU::getHeading() {
-    imu::Vector<3> euler = _bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    return euler.x();  // 0–360 degrees
+imu::Vector<3> IMU::getEuler() {
+    return _bno.getVector(Adafruit_BNO055::VECTOR_EULER);
 }
 
-float IMU::getPitch() {
-    imu::Vector<3> euler = _bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    return euler.y();
-}
-
-float IMU::getRoll() {
-    imu::Vector<3> euler = _bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    return euler.z();
-}
+float IMU::getHeading() { return getEuler().x(); }  // 0–360 degrees
+float IMU::getPitch()   { return getEuler().y(); }
+float IMU::getRoll()    { return getEuler().z(); }
 
 bool IMU::isCalibrated() {
     uint8_t sys, gyr, acc, mag;

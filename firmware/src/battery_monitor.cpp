@@ -6,7 +6,8 @@ BatteryMonitor::BatteryMonitor(uint8_t adcPin, float dividerRatio)
 
 void BatteryMonitor::begin() {
     pinMode(_pin, INPUT);
-    analogSetAttenuation(ADC_11db);   // ESP32: 0–3.9V range
+    // Pin-specific attenuation avoids changing other ADC channels globally
+    analogSetPinAttenuation(_pin, ADC_11db);  // 0–3.9V range on this pin only
 }
 
 float BatteryMonitor::getVoltage() {

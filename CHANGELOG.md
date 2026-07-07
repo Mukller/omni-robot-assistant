@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.3] — 2026-07-07
+
+### Fixed
+- `firmware/src/battery_monitor.cpp` — `analogSetAttenuation(ADC_11db)` changed attenuation on all ESP32 ADC channels globally; replaced with `analogSetPinAttenuation(_pin, ADC_11db)` which scopes to the battery pin only
+- `firmware/src/imu.h/.cpp` — `getHeading()`, `getPitch()`, `getRoll()` each issued a separate I2C read; added public `getEuler()` that reads once; individual getters now call it (still 1 read each when used alone; callers needing all three should use `getEuler()` directly)
+
 ## [1.1.2] — 2026-07-07
 
 ### Fixed
