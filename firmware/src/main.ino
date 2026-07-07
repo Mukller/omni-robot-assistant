@@ -23,7 +23,7 @@ PID           pidR(2.5f, 0.8f, 0.05f, -255, 255);
 IMU           imu;
 LidarDriver   lidar(Serial2, LIDAR_RX, LIDAR_TX);
 CurrentSensor csL(INA_ADDR_L), csR(INA_ADDR_R);
-BatteryMonitor batt(BATT_PIN);
+BatteryMonitor batt(BATT_PIN, BATT_DIVIDER_RATIO);
 SafetyMonitor  safety(motorL, motorR, pidL, pidR);
 MicroROSBridge ros;
 

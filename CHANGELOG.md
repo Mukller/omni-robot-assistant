@@ -3,6 +3,15 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.5] — 2026-07-07
+
+### Fixed
+- `firmware/config.h` — add `BATT_DIVIDER_RATIO 4.03f` (100kΩ/33kΩ → exact ratio); document GPIO 34/35 no-pullup limitation
+- `firmware/src/main.ino` — pass `BATT_DIVIDER_RATIO` to `BatteryMonitor` constructor (was using header default 4.0f)
+- `docs/wiring.md` — GPIO table still said "100kΩ/220kΩ" for GPIO 36 (stale); add explicit pull-up note for GPIO 34/35
+- `ros2/sdf/makerspet_loki/model.sdf` — IMU plugin was at model level (never produced data); moved into `<sensor type="imu">` element inside `base_link` with BNO055-realistic noise values; removed duplicate model-level plugin
+- `ros2/sdf/empty.world` — created missing world file; `gazebo.launch.py` crashed with FileNotFoundError without it
+
 ## [1.1.4] — 2026-07-07
 
 ### Fixed

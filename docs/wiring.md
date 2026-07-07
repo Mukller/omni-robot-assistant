@@ -21,13 +21,13 @@ LiPo 11.1V → Power switch → Fuse (5A)
 | 13   | L298N ENB — Right     | PWM (LEDC ch1, 20 kHz)             |
 | 32   | Encoder L — Phase A   | Interrupt (rising)                 |
 | 33   | Encoder L — Phase B   | Interrupt (rising)                 |
-| 34   | Encoder R — Phase A   | Input-only, interrupt              |
-| 35   | Encoder R — Phase B   | Input-only, interrupt              |
+| 34   | Encoder R — Phase A   | Input-only; **add 10kΩ pull-up to 3.3V** (no internal pull-up) |
+| 35   | Encoder R — Phase B   | Input-only; **add 10kΩ pull-up to 3.3V** (no internal pull-up) |
 | 16   | LiDAR UART RX         | Serial2, 115200 baud               |
 | 17   | LiDAR UART TX         | Serial2                            |
 | 21   | I²C SDA               | BNO055 + INA219 shared bus         |
 | 22   | I²C SCL               | BNO055 + INA219 shared bus         |
-| 36   | Battery ADC (VP)      | Input-only; 100kΩ/220kΩ divider    |
+| 36   | Battery ADC (VP)      | Input-only; 100kΩ/33kΩ divider (see below) |
 
 > **GPIO 34/35/36** are input-only on ESP32 — do not connect to output drivers.
 

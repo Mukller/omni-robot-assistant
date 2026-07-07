@@ -42,6 +42,31 @@
           </script>
         </material>
       </visual>
+
+      <!-- IMU sensor — must be inside a link, not at model level -->
+      <sensor name="imu_sensor" type="imu">
+        <pose>0 0 0.05 0 0 0</pose>
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <imu>
+          <angular_velocity>
+            <x><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0.0</mean><stddev>2e-4</stddev></noise></z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></x>
+            <y><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></y>
+            <z><noise type="gaussian"><mean>0.0</mean><stddev>1.7e-2</stddev></noise></z>
+          </linear_acceleration>
+        </imu>
+        <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+          <ros>
+            <remapping>~/out:=imu/data</remapping>
+          </ros>
+          <initial_orientation_as_reference>false</initial_orientation_as_reference>
+        </plugin>
+      </sensor>
     </link>
 
     <!-- Left wheel -->
@@ -300,14 +325,6 @@
       <odometry_topic>odom</odometry_topic>
       <odometry_frame>odom</odometry_frame>
       <robot_base_frame>base_link</robot_base_frame>
-    </plugin>
-
-    <!-- IMU plugin -->
-    <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
-      <ros>
-        <remapping>~/out:=imu/data</remapping>
-      </ros>
-      <initial_orientation_as_reference>false</initial_orientation_as_reference>
     </plugin>
 
   </model>

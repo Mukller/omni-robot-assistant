@@ -22,7 +22,10 @@
 #define INA_ADDR_L  0x40
 #define INA_ADDR_R  0x41
 // Battery ADC
-#define BATT_PIN  36
+#define BATT_PIN           36
+// Voltage divider: 100 kΩ / 33 kΩ → (100+33)/33 = 4.03
+// GPIO 34/35 are input-only: INPUT_PULLUP is silently ignored — add external 10 kΩ pull-ups
+#define BATT_DIVIDER_RATIO 4.03f
 // Robot geometry (Loki 200mm platform)
 #define WHEEL_RADIUS_M   0.0375f  // 75mm diameter
 #define WHEEL_BASE_M     0.172f   // distance between wheels
