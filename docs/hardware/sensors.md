@@ -72,7 +72,7 @@ INA219-R (правый мотор): A0=VCC, A1=GND → адрес 0x41
 
 - Мониторинг тока моторов (детекция перегрузки, заклинивания)
 - Отображение в телеметрии ROS2 (`/battery_state` topic)
-- Автоматическая остановка при превышении 3А (Safety класс)
+- Автоматическая остановка при превышении 2.5А (Safety класс, `OVERCURRENT_A`)
 
 ```cpp
 CurrentSensor csL(0x40), csR(0x41);
@@ -81,8 +81,8 @@ float currentL = csL.getCurrent_mA() / 1000.0f;  // → Амперы
 float voltageL = csL.getVoltage_V();
 
 // Safety check
-if (currentL > 3.0f || currentR > 3.0f) {
-    motorL.stop(); motorR.stop();  // overcurrent protection
+if (currentL > 2.5f || currentR > 2.5f) {
+    motorL.stop(); motorR.stop();  // overcurrent protection (OVERCURRENT_A = 2.5A)
 }
 ```
 
@@ -118,9 +118,9 @@ if (currentL > 3.0f || currentR > 3.0f) {
 ### Мониторинг заряда
 
 ```cpp
-// Делитель напряжения: 10кОм + 3.3кОм (4:1 делитель)
-// ADC ESP32: 0–3.3В → GPIO36 (VP)
-float voltage = analogRead(BATT_PIN) * 3.3f / 4095.0f * 4.0f;
+// Делитель напряжения: 100кОм + 33кОм → ratio = (100+33)/33 = 4.03
+// ADC ESP32: 0–3.9В (ADC_11db) → GPIO36 (VP, input-only)
+float voltage = analogRead(BATT_PIN) * 3.3f / 4095.0f * 4.03f;
 int percent = (int)((voltage - 10.5f) / (12.6f - 10.5f) * 100.0f);
 ```
 

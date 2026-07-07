@@ -9,6 +9,9 @@ ros2/build/
 ros2/install/
 ros2/log/
 
+# Credentials (never commit local config)
+firmware/src/wifi_config.local.h
+
 # Python
 __pycache__/
 *.pyc
