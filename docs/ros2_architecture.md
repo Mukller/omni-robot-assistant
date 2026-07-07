@@ -31,7 +31,6 @@ cartographer_occupancy_grid_node                                       │
    └─ Output: /map (периодически обновляет)                            │
                                                                        │
 Nav2 стек:                                                             │
-   ├─ amcl → /tf (map → odom), /particle_cloud                        │
    ├─ controller_server → /cmd_vel ──────────────────────────────────►┘
    ├─ planner_server → глобальный путь
    ├─ bt_navigator → выполнение поведенческого дерева
@@ -79,7 +78,7 @@ map
 |----------|----------|----------|
 | `min_range` | 0.15 м | Минимальная дальность сканирования |
 | `max_range` | 7.0 м | Максимальная дальность |
-| `use_imu_data` | false | ИМУ не используется в 2D режиме |
+| `use_imu_data` | true | BNO055 через EKF; `tracking_frame = "imu_link"` |
 | `use_online_correlative_scan_matching` | true | Улучшает качество в реальном времени |
 | `constraint_builder.min_score` | 0.65 | Порог для создания loop-closure связей |
 | `optimize_every_n_nodes` | 90 | Частота оптимизации позового графа |
@@ -92,10 +91,11 @@ map
 
 | Параметр | Значение |
 |----------|----------|
-| `max_vel_x` | 0.26 м/с |
+| `max_vel_x` | 0.22 м/с |
 | `max_vel_theta` | 1.0 рад/с |
-| `acc_lim_x` | 2.5 м/с² |
-| `sim_time` | 1.7 с |
+| `acc_lim_x` | 1.5 м/с² |
+| `decel_lim_x` | -2.0 м/с² |
+| `sim_time` | 2.0 с |
 | `vx_samples` | 20 |
 | `vtheta_samples` | 40 |
 
