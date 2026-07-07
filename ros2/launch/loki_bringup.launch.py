@@ -1,4 +1,5 @@
 import os
+import xacro
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, TimerAction
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -9,8 +10,8 @@ def generate_launch_description():
     pkg     = get_package_share_directory('loki_robot')
     nav2_pkg = get_package_share_directory('nav2_bringup')
 
-    with open(os.path.join(pkg, 'urdf', 'robot.urdf.xacro'), 'r') as f:
-        robot_desc = f.read()
+    robot_desc = xacro.process_file(
+        os.path.join(pkg, 'urdf', 'robot.urdf.xacro')).toxml()
 
     # ── micro-ROS agent (ESP32 bridge) ────────────────────────────────────
     micro_ros_agent = Node(

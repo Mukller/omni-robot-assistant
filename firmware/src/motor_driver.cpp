@@ -28,13 +28,16 @@ void MotorDriver::setSpeed(int speed) {
 void MotorDriver::stop(BrakeMode mode) {
     _speed = 0;
     if (mode == BRAKE_STOP) {
+        // L298N brake: both inputs HIGH + enable HIGH shorts the motor winding
         digitalWrite(_in1, HIGH);
         digitalWrite(_in2, HIGH);
+        analogWrite(_en, 255);
     } else {
+        // Coast: disable H-bridge
         digitalWrite(_in1, LOW);
         digitalWrite(_in2, LOW);
+        analogWrite(_en, 0);
     }
-    analogWrite(_en, 0);
 }
 
 bool MotorDriver::isRunning() const { return _speed != 0; }

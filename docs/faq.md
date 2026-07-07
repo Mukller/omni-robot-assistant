@@ -21,7 +21,7 @@ MakersPet Loki — это open-source мобильный робот диамет
 ## Железо
 
 ### Какой LiDAR рекомендуется?
-**YDLidar X4** — оптимальный выбор: 0.12–10м, 5000 сэмплов/сек, 6–12Гц, ~$60. Полный список совместимых LiDAR в [kaiaai/LDS](https://github.com/kaiaai/LDS#supported-models).
+**YDLidar X4** — оптимальный выбор: 0.12–10м, 5000 сэмплов/сек, 6–12Гц, ~$60. Полный список совместимых LiDAR в [docs/lidar_compatibility.md](lidar_compatibility.md).
 
 ### Можно ли использовать другой мотор-драйвер вместо L298N?
 Да. Прошивка через kaiaai/firmware поддерживает: TB6612FNG, DRV8871, DRV8833, DRV8835. Для BLDC — JGA25-BL2418. Рекомендуется TB6612FNG как более эффективная альтернатива L298N.

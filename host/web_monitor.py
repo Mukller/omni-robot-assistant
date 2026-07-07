@@ -31,7 +31,6 @@ DASHBOARD = """<!DOCTYPE html>
 <head>
   <meta charset="utf-8">
   <title>Loki Monitor</title>
-  <meta http-equiv="refresh" content="0">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: #0d1117; color: #e6edf3; font-family: system-ui, sans-serif; padding: 20px; }

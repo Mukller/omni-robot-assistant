@@ -12,8 +12,8 @@ Encoder::Encoder(uint8_t pinA, uint8_t pinB)
 }
 
 void Encoder::begin() {
-    pinMode(_pinA, INPUT);
-    pinMode(_pinB, INPUT);
+    pinMode(_pinA, INPUT_PULLUP);
+    pinMode(_pinB, INPUT_PULLUP);
     // Assign ISR based on instance index
     if (_myIdx == 0) {
         attachInterrupt(digitalPinToInterrupt(_pinA), isrA, CHANGE);

@@ -3,6 +3,15 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.2] — 2026-07-07
+
+### Fixed
+- `ros2/launch/loki_bringup.launch.py` — raw `.xacro` file read passed unexpanded macros as `robot_description`; replaced with `xacro.process_file()`
+- `firmware/src/motor_driver.cpp` — `stop(BRAKE_STOP)` set `analogWrite(_en, 0)` at the end, disabling the H-bridge and causing coast instead of brake; fix sets `en=255` for BRAKE_STOP
+- `firmware/src/encoder.cpp` — `pinMode(pin, INPUT)` left encoder pins floating, causing phantom tick counts; changed to `INPUT_PULLUP`
+- `host/web_monitor.py` — `<meta http-equiv="refresh" content="0">` caused instant infinite page reload; removed (JS polling via `setInterval` handles updates)
+- `docs/faq.md` — broken external link restored to correct local `lidar_compatibility.md`
+
 ## [1.1.1] — 2026-07-07
 
 ### Fixed
