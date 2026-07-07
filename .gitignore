@@ -1,8 +1,21 @@
+# PlatformIO
 .pio/
-__pycache__/
-*.pyc
-build/
 *.o
 *.bin
 *.elf
+
+# ROS2 workspace artifacts
+ros2/build/
+ros2/install/
+ros2/log/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS / editors
 .DS_Store
+*.swp
+
+# Generic build output
+build/

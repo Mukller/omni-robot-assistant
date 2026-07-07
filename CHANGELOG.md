@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.4] — 2026-07-07
+
+### Fixed
+- `firmware/test/test_pid.cpp` — `test_reset_clears_state` expected `~0.1` but with Kd=1 the derivative kick gives `~10.1`; changed to pure-I controller (Kd=0) so expected value is correct
+- `.gitignore` — add `ros2/build/`, `ros2/install/`, `ros2/log/` to prevent committing ROS2 workspace artifacts; add `*.swp` for vim
+
 ## [1.1.3] — 2026-07-07
 
 ### Fixed

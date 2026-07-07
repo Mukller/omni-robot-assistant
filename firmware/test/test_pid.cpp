@@ -54,12 +54,13 @@ void test_zero_setpoint_holds_zero() {
 }
 
 void test_reset_clears_state() {
-    PID pid(0.0f, 1.0f, 1.0f, -1000, 1000);
+    // Pure-I controller: reset must zero the integral so output matches a fresh start
+    PID pid(0.0f, 1.0f, 0.0f, -1000, 1000);
     for (int i = 0; i < 10; i++)
-        pid.compute(5.0f, 0.0f, 0.1f);
+        pid.compute(5.0f, 0.0f, 0.1f);  // integral accumulates to 5.0
     pid.reset();
-    float out = pid.compute(1.0f, 0.0f, 0.1f);
-    TEST_ASSERT_FLOAT_WITHIN(0.5f, 0.1f, out);  // should behave like first call
+    float out = pid.compute(1.0f, 0.0f, 0.1f);  // integral = 0 + 1*0.1 = 0.1 → out = 0.1
+    TEST_ASSERT_FLOAT_WITHIN(0.01f, 0.1f, out);
 }
 
 int main() {
