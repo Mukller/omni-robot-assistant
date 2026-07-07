@@ -106,8 +106,10 @@ ros2 service call /global_costmap/clear_entirely_global_costmap \
 **Симптомы:** `explore_lite` не находит новых фронтиров.
 ```bash
 # Уменьшить min_frontier_size в explore_lite.yaml (с 0.75 до 0.5)
-# Увеличить inflation_radius в costmap (с 0.1 до 0.15) — робот будет осторожнее
-# Перезапустить explore_lite: ros2 lifecycle_node list → restart
+# Уменьшить inflation_radius в costmap — больший радиус блокирует узкие проходы
+# Перезапустить explore_lite:
+ros2 lifecycle set /explore active && ros2 lifecycle set /explore deactivate
+ros2 lifecycle set /explore activate
 ```
 
 ### RViz не показывает робота (URDF не загружен)

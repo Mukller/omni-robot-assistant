@@ -1,7 +1,7 @@
 # Assembly Guide
 
 ## Step 1 — Print STL Parts
-Print from `stl/` folder:
+Download STL files from the [MakersPet Loki GitHub](https://github.com/makerspet/makerspet_loki):
 - `Bottom_Plate.stl` — 20% infill, PETG
 - `Middle_Plate.stl` — 20% infill, PETG
 - `Upper_Plate.stl` — 20% infill, PETG
@@ -15,7 +15,7 @@ Print from `stl/` folder:
 3. Install encoders on motor shafts (press-fit)
 
 ## Step 3 — Wheel Assembly
-1. Press 48mm omni wheels onto motor shafts (6mm keyed)
+1. Press 75mm rubber wheels onto motor shafts (6mm keyed hub)
 2. Mount caster ball in front bracket
 
 ## Step 4 — Electronics

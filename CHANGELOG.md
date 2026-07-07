@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.6] — 2026-07-07
+
+### Fixed
+- `docs/troubleshooting.md` — "Robot застрял" advice said to **increase** inflation_radius but larger radius blocks narrow paths and makes it harder; changed to **decrease**; also fixed incorrect `lifecycle_node list` restart command
+- `docs/assembly.md` — STL files referenced non-existent `stl/` folder; pointed to MakersPet GitHub; "48mm omni wheels" was wrong — Loki uses 75mm rubber wheels
+
 ## [1.1.5] — 2026-07-07
 
 ### Fixed
