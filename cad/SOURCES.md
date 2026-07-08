@@ -8,7 +8,7 @@
 ## LiDAR Mounts
 - **Xiaomi LDS-01 / LDS02RR** — included in Loki STL set
 - **RPLIDAR A1** — included in Loki STL set
-- **YDLidar X4** — custom bracket (see `stl/ydlidar_x4_bracket.stl`)
+- **YDLidar X4** — mount plate in [MakersPet 3D models](https://github.com/makerspet/3d_models/tree/main/loki_200mm/stl) (`YDLidar X4 plate.stl`)
 
 ## Reference Designs
 - Thingiverse #515831 — universal LiDAR mount

@@ -1,5 +1,15 @@
 # Release Information
 
+## v1.1.8 — 2026-07-09
+
+### Critical Fix
+- **Safety latch broken in two ways**: (1) `_latchedFault = _battLow || overcurrent` at the end of `update()` unconditionally overwrote the latch every cycle — fault lasting one cycle would auto-reset two cycles later without any operator action; (2) `clearEStop()` only cleared `_estop`, not `_latchedFault`, so calling it didn't take immediate effect. Fixed: latch only ever SETS (`if (...) _latchedFault = true`); `clearEStop()` now clears both.
+
+### Other
+- `cad/SOURCES.md` — YDLidar X4 entry pointed to non-existent local `stl/ydlidar_x4_bracket.stl`; updated to upstream MakersPet 3D models link.
+
+---
+
 ## v1.1.7 — 2026-07-08
 
 Final audit sweep — config consistency and docs correctness.

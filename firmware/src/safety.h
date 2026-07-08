@@ -12,7 +12,7 @@ public:
 
     bool isEStop()   const { return _estop; }
     bool isBattLow() const { return _battLow; }
-    void clearEStop()      { _estop = false; }
+    void clearEStop()      { _latchedFault = false; _estop = false; }
 
 private:
     MotorDriver& _mL;

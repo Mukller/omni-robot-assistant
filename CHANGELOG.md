@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.8] — 2026-07-09
+
+### Fixed
+- `firmware/src/safety.cpp` — `_latchedFault` was overwritten (`= _battLow || overcurrent`) at the end of every `update()` call, so the latch only survived one extra cycle after fault cleared, then auto-reset without `clearEStop()`; also `clearEStop()` only cleared `_estop` not `_latchedFault` so calling it didn't actually work immediately; fixed both: latch only sets (never auto-clears), and `clearEStop()` clears `_latchedFault` too
+- `cad/SOURCES.md` — YDLidar X4 entry referenced non-existent local `stl/ydlidar_x4_bracket.stl`; pointed to upstream MakersPet 3D models repo
+
 ## [1.1.7] — 2026-07-08
 
 ### Fixed

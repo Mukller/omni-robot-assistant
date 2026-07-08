@@ -12,17 +12,11 @@ void SafetyMonitor::update(float battVolt, float currL_A, float currR_A,
     bool cmdTimeout = (lastCmdMs > 0) && (millis() - lastCmdMs > CMD_TIMEOUT_MS);
 
     // Latching faults (battery + overcurrent) require clearEStop() to recover.
-    // cmd_vel timeout auto-clears as soon as commands resume.
-    if (_battLow || overcurrent) {
-        _estop = true;
-    } else if (cmdTimeout) {
-        _estop = true;
-    } else {
-        // No active fault — clear cmd_vel timeout e-stop (non-latching)
-        if (!_latchedFault) _estop = false;
-    }
+    // Only set — never auto-clear; clearEStop() is the only path out.
+    if (_battLow || overcurrent) _latchedFault = true;
 
-    _latchedFault = _battLow || overcurrent;
+    // cmd_vel timeout is non-latching: auto-clears as soon as commands resume.
+    _estop = _latchedFault || cmdTimeout;
 
     if (_estop) {
         _mL.stop(BRAKE_STOP);
