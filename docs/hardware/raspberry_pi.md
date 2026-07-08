@@ -112,7 +112,6 @@ Wants=network-online.target
 Type=simple
 User=ubuntu
 Environment="HOME=/home/ubuntu"
-ExecStartPre=/bin/bash -c "source /opt/ros/iron/setup.bash && source /home/ubuntu/ros2_ws/install/setup.bash"
 ExecStart=/bin/bash -c "source /opt/ros/iron/setup.bash && source /home/ubuntu/ros2_ws/install/setup.bash && ros2 launch loki_robot loki_bringup.launch.py"
 Restart=on-failure
 RestartSec=5

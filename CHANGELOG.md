@@ -3,6 +3,16 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.7] — 2026-07-08
+
+### Fixed
+- `ros2/config/navigation.yaml` — `velocity_smoother` limits were `max_velocity: [0.26, 0, 1.0]`, `max_accel: [2.5, 0, 3.2]`, `max_decel: [-2.5, 0, -3.2]`, inconsistent with DWB (0.22/1.5/-2.0); also `odom_topic: "odom"` → `/odometry/filtered`
+- `ros2/config/self_drive_gazebo.yaml` — forward speed `0.3 m/s` exceeded safe max (0.22); corrected
+- `ros2/config/teleop_keyboard.yaml` — `max_lin_vel: 0.61` above JGA25-370 physical max; corrected to 0.39
+- `docs/hardware/motors_and_wheels.md` — "Omni Wheels 48mm" section listed omni-wheel specs; replaced with correct 75mm rubber drive wheel table
+- `cad/bom.csv` — "Omni wheel 48mm" corrected to "Rubber wheel 75mm"
+- `docs/hardware/raspberry_pi.md` — systemd `ExecStartPre` sourcing bash setup files in a child shell (env doesn't propagate to `ExecStart`); removed the no-op directive
+
 ## [1.1.6] — 2026-07-07
 
 ### Fixed

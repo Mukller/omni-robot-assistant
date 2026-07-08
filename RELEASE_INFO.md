@@ -1,5 +1,19 @@
 # Release Information
 
+## v1.1.7 — 2026-07-08
+
+Final audit sweep — config consistency and docs correctness.
+
+### Fixed
+- **`velocity_smoother` limits**: `max_velocity` was `[0.26, 0, 1.0]`; synced to DWB values `[0.22, 0, 1.8]`; `max_accel` `[2.5]` → `[1.5]`; `max_decel` `[-2.5]` → `[-2.0]`; `odom_topic: "odom"` → `/odometry/filtered`
+- **`self_drive_gazebo.yaml`**: forward speed `0.3 m/s` exceeded robot safe max; lowered to `0.22`
+- **`teleop_keyboard.yaml`**: `max_lin_vel: 0.61` far above JGA25-370 physical max (~0.39 m/s); corrected to `0.39`
+- **`motors_and_wheels.md`**: "Omni Wheels 48mm" section had wrong type and specs; replaced with "Drive Wheels (75mm rubber)" matching actual hardware
+- **`cad/bom.csv`**: "Omni wheel 48mm" → "Rubber wheel 75mm"
+- **`raspberry_pi.md`**: `ExecStartPre` sourcing bash files in a child shell (env does not propagate to `ExecStart`); removed the no-op line
+
+---
+
 ## v1.1.6 — 2026-07-07
 
 Stability and correctness sprint — 6 patch releases fixing bugs found in code audit.

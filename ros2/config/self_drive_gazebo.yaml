@@ -4,7 +4,7 @@ self_drive_gazebo_node:
   ros__parameters:
     velocity:
       topic_name_pub: "cmd_vel"
-      linear: 0.3          # m/s forward speed
+      linear: 0.22         # m/s forward speed (JGA25-370 safe max)
       angular: 1.5         # rad/s turning speed
 
     laser_scan:
