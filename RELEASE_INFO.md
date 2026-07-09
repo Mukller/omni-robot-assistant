@@ -1,5 +1,13 @@
 # Release Information
 
+## v1.1.9 — 2026-07-09
+
+### Fixed
+- **`slam.launch.py` xacro not processed**: same bug previously fixed in `gazebo.launch.py` and `loki_bringup.launch.py` — raw file read passes unexpanded xacro XML to `robot_state_publisher`; fixed to `xacro.process_file().toxml()`
+- **`teleop_keyboard.yaml` node name mismatch**: yaml key `teleop_keyboard_node` did not match the launch node name `teleop_keyboard`; ROS2 silently ignored all teleop speed params (max_lin_vel, max_ang_vel, etc.); fixed key to `teleop_keyboard`
+
+---
+
 ## v1.1.8 — 2026-07-09
 
 ### Critical Fix

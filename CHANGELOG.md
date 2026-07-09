@@ -3,6 +3,12 @@
 All notable changes to this project are documented here.
 Format: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [1.1.9] — 2026-07-09
+
+### Fixed
+- `ros2/launch/slam.launch.py` — raw xacro file read (same bug fixed earlier in `gazebo.launch.py` and `loki_bringup.launch.py`); `robot_state_publisher` received unexpanded xacro XML and failed to parse it; now uses `xacro.process_file().toxml()`
+- `ros2/config/teleop_keyboard.yaml` — top-level key was `teleop_keyboard_node` but launch file registers node as `name='teleop_keyboard'`; ROS2 parameter namespace mismatch meant all teleop params were silently ignored; renamed key to `teleop_keyboard`
+
 ## [1.1.8] — 2026-07-09
 
 ### Fixed

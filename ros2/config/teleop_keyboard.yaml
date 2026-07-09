@@ -1,6 +1,6 @@
 # Teleop keyboard parameters
 # https://github.com/makerspet/makerspet_loki/blob/main/config/teleop_keyboard.yaml
-teleop_keyboard_node:
+teleop_keyboard:
   ros__parameters:
     max_lin_vel: 0.39       # m/s maximum linear velocity (JGA25-370 40:1 physical max at 12V)
     max_ang_vel: 2.84       # rad/s maximum angular velocity

@@ -1,4 +1,5 @@
 import os
+import xacro
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -6,8 +7,8 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     pkg = get_package_share_directory('loki_robot')
 
-    with open(os.path.join(pkg, 'urdf', 'robot.urdf.xacro'), 'r') as f:
-        robot_desc = f.read()
+    robot_desc = xacro.process_file(
+        os.path.join(pkg, 'urdf', 'robot.urdf.xacro')).toxml()
 
     return LaunchDescription([
         # TF tree — required for Cartographer to find base_link → laser transform
